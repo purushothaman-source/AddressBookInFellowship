@@ -37,9 +37,11 @@ public class AddressBook {
         System.out.println("Welcome to AddressBook");
         ArrayList<Contacts> book = new ArrayList<>();
         add(book);
+        edit(book);
         System.out.println(book);
     }
-    public static void add(ArrayList<Contacts> book){
+
+    public static void add(ArrayList<Contacts> book) {
         Scanner input = new Scanner(System.in);
         String firstName = input.next();
         String lastName = input.next();
@@ -48,7 +50,39 @@ public class AddressBook {
         String state = input.next();
         long zip = input.nextLong();
         long phoneNumber = input.nextLong();
-        book.add(new Contacts(firstName,lastName,address,city,state,zip,phoneNumber));
+        book.add(new Contacts(firstName, lastName, address, city, state, zip, phoneNumber));
     }
 
+    public static void edit(ArrayList<Contacts> book) {
+        Scanner input = new Scanner(System.in);
+        boolean flag = false;
+        System.out.println("ENTER THE FIRSTNAME WHICH YOU WANT TO EDIT");
+        System.out.println("enter firstname");
+        String firstName = input.next();
+        for (Contacts books : book) {
+            if (books.firstName.equalsIgnoreCase(firstName)) {
+                flag = true;
+                book.remove(books);
+                break;
+            }
+        }
+        if (flag == true) {
+            System.out.println("enter lastname");
+            String lastName = input.next();
+            System.out.println("enter address");
+            String address = input.next();
+            System.out.println("enter city");
+            String city = input.next();
+            System.out.println("enter state");
+            String state = input.next();
+            System.out.println("enter zip");
+            long zip = input.nextLong();
+            System.out.println("enter phone number");
+            long phoneNumber = input.nextLong();
+            book.add(new Contacts(firstName, lastName, address, city, state, zip, phoneNumber));
+            System.out.println("******EDITED SUCCESSFULLY*******");
+        } else {
+            System.out.println("No records found");
+        }
+    }
 }
