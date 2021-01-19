@@ -38,6 +38,7 @@ public class AddressBook {
         ArrayList<Contacts> book = new ArrayList<>();
         add(book);
         edit(book);
+        delete(book);
         System.out.println(book);
     }
 
@@ -84,5 +85,22 @@ public class AddressBook {
         } else {
             System.out.println("No records found");
         }
+    }
+    public static void delete(ArrayList<Contacts> book) {
+        System.out.println("enter the firstname to delete");
+        Scanner input = new Scanner(System.in);
+        boolean flag = false;
+        String firstName = input.next();
+        for (Contacts Books : book) {
+            if (Books.firstName.equalsIgnoreCase(firstName)) {
+                book.remove(Books);
+                System.out.println("DELETED SUCCESSFULLY");
+                flag = true;
+                return;
+            }
+
+        }
+        if (flag == false)
+            System.out.println("NO RECORDS FOUND TO DELETE");
     }
 }
