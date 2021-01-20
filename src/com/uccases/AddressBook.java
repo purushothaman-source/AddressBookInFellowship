@@ -18,6 +18,7 @@ class Contacts {
         this.phoneNumber = phoneNumber;
     }
 
+
     @Override
     public String toString() {
         return "Contacts{" +
@@ -63,12 +64,25 @@ public class AddressBook {
         String check = "y";
         while (!check.equalsIgnoreCase("n")) {
             Scanner input = new Scanner(System.in);
+            System.out.println("Enter FirstName");
             String firstName = input.next();
+            for (Contacts Books : book) {
+                if (firstName.equalsIgnoreCase(Books.firstName)) {
+                    System.out.println("Duplicate Entry");
+                    return;
+                }
+            }
+            System.out.println("Enter lastname");
             String lastName = input.next();
+            System.out.println("Enter address");
             String address = input.next();
+            System.out.println("enter city");
             String city = input.next();
+            System.out.println("Enter state");
             String state = input.next();
+            System.out.println("Enter zip");
             long zip = input.nextLong();
+            System.out.println("Enter phone number");
             long phoneNumber = input.nextLong();
             book.add(new Contacts(firstName, lastName, address, city, state, zip, phoneNumber));
             System.out.println("Do you want to add more?(y/n)");
