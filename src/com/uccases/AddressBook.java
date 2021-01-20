@@ -36,22 +36,45 @@ public class AddressBook {
     public static void main(String[] args) {
         System.out.println("Welcome to AddressBook");
         ArrayList<Contacts> book = new ArrayList<>();
-        add(book);
-        edit(book);
-        delete(book);
+        Scanner input = new Scanner(System.in);
+        String check = "y";
+        while (!check.equalsIgnoreCase("n")) {
+            System.out.println("Enter the Operation you want to perform");
+            System.out.println("1.Add \n 2.Edit \n 3.Delete ");
+            int option = input.nextInt();
+            switch (option) {
+                case 1:
+                    add(book);
+                    break;
+                case 2:
+                    edit(book);
+                    break;
+                case 3:
+                    delete(book);
+                    break;
+            }
+            System.out.println("Do you want to perform any other option ?press(y/n)");
+            check = input.next();
+        }
         System.out.println(book);
     }
 
     public static void add(ArrayList<Contacts> book) {
-        Scanner input = new Scanner(System.in);
-        String firstName = input.next();
-        String lastName = input.next();
-        String address = input.next();
-        String city = input.next();
-        String state = input.next();
-        long zip = input.nextLong();
-        long phoneNumber = input.nextLong();
-        book.add(new Contacts(firstName, lastName, address, city, state, zip, phoneNumber));
+        String check = "y";
+        while (!check.equalsIgnoreCase("n")) {
+            Scanner input = new Scanner(System.in);
+            String firstName = input.next();
+            String lastName = input.next();
+            String address = input.next();
+            String city = input.next();
+            String state = input.next();
+            long zip = input.nextLong();
+            long phoneNumber = input.nextLong();
+            book.add(new Contacts(firstName, lastName, address, city, state, zip, phoneNumber));
+            System.out.println("Do you want to add more?(y/n)");
+            Scanner scanner = new Scanner(System.in);
+            check = scanner.next();
+        }
     }
 
     public static void edit(ArrayList<Contacts> book) {
@@ -86,8 +109,9 @@ public class AddressBook {
             System.out.println("No records found");
         }
     }
+
     public static void delete(ArrayList<Contacts> book) {
-        System.out.println("enter the firstname to delete");
+        System.out.println("Enter the firstname to delete");
         Scanner input = new Scanner(System.in);
         boolean flag = false;
         String firstName = input.next();
