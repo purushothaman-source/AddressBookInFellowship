@@ -37,11 +37,16 @@ public class AddressBook {
     public static void main(String[] args) {
         System.out.println("Welcome to AddressBook");
         ArrayList<Contacts> book = new ArrayList<>();
+        book.add( new Contacts("purushoth", "kabaddi"," address","chennai", "tamilnadu", 607003, 9488806205l));
+        book.add( new Contacts("babu", "Sail"," address","mumbai", "maharastra", 607007, 9488806205l));
+        book.add( new Contacts("appu", "Jana"," address","bangalore", "karnataka", 607403, 9488806205l));
+        book.add( new Contacts("seetha", "lakshmi"," address","pune", "maharastra", 607083, 9488806205l));
+        book.add( new Contacts("siva", "nantham"," address","kolkata", "west bengal", 607903, 9488806205l));
         Scanner input = new Scanner(System.in);
         String check = "y";
         while (!check.equalsIgnoreCase("n")) {
             System.out.println("Enter the Operation you want to perform");
-            System.out.println("1.Add \n 2.Edit \n 3.Delete ");
+            System.out.println("1.Add \n 2.Edit \n 3.Delete \n 4.Search");
             int option = input.nextInt();
             switch (option) {
                 case 1:
@@ -52,6 +57,9 @@ public class AddressBook {
                     break;
                 case 3:
                     delete(book);
+                    break;
+                case 4:
+                    search(input, book);
                     break;
             }
             System.out.println("Do you want to perform any other option ?press(y/n)");
@@ -140,5 +148,40 @@ public class AddressBook {
         }
         if (flag == false)
             System.out.println("NO RECORDS FOUND TO DELETE");
+    }
+
+    public static void search(Scanner userinput, ArrayList<Contacts> book) {
+        System.out.println("how do you like to search 1.city 2.state ?");
+        int option= userinput.nextInt();
+        if(option==1) {
+            System.out.println("Enter city");
+            String city = userinput.next();
+            System.out.println("Enter the FirstName you want to see");
+            String firstname = userinput.next();
+            boolean flag = false;
+            for (Contacts Books : book) {
+                if (Books.firstName.equalsIgnoreCase(firstname) && Books.city.equalsIgnoreCase(city)) {
+                    System.out.println(Books);
+                    flag = true;
+                }
+            }
+            if (flag == false)
+                System.out.println("No records found");
+        }
+        else {
+            System.out.println("Enter State");
+            String state  = userinput.next();
+            System.out.println("Enter the FirstName you want to see");
+            String firstname = userinput.next();
+            boolean flag = false;
+            for (Contacts Books : book) {
+                if (Books.firstName.equalsIgnoreCase(firstname) && Books.state.equalsIgnoreCase(state)) {
+                    System.out.println(Books);
+                    flag = true;
+                }
+            }
+            if (flag == false)
+                System.out.println("No records found");
+        }
     }
 }
