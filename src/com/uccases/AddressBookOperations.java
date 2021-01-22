@@ -1,9 +1,7 @@
 package com.uccases;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookOperations {
     public static void add(ArrayList<Contacts> book) {
@@ -96,29 +94,16 @@ public class AddressBookOperations {
             String city = userinput.next();
             System.out.println("Enter the FirstName you want to see");
             String firstname = userinput.next();
-            boolean flag = false;
-            for (Contacts Books : book) {
-                if (Books.firstName.equalsIgnoreCase(firstname) && Books.city.equalsIgnoreCase(city)) {
-                    System.out.println(Books);
-                    flag = true;
-                }
-            }
-            if (flag == false)
-                System.out.println("No records found");
+            book.stream().filter(n -> n.firstName.equalsIgnoreCase(firstname)&& n.city.equalsIgnoreCase(city))
+                    .forEach(System.out::println);
         } else {
             System.out.println("Enter State");
             String state = userinput.next();
             System.out.println("Enter the FirstName you want to see");
             String firstname = userinput.next();
-            boolean flag = false;
-            for (Contacts Books : book) {
-                if (Books.firstName.equalsIgnoreCase(firstname) && Books.state.equalsIgnoreCase(state)) {
-                    System.out.println(Books);
-                    flag = true;
-                }
-            }
-            if (flag == false)
-                System.out.println("No records found");
+            book.stream().filter(n -> n.firstName.equalsIgnoreCase(firstname)&& n.city.equalsIgnoreCase(state))
+                    .forEach(System.out::println);
+
         }
     }
 
@@ -127,65 +112,60 @@ public class AddressBookOperations {
         int option = userinput.nextInt();
         if (option == 1) {
             System.out.println("Enter city");
-            String city = userinput.next();
-            boolean flag = false;
-            for (Contacts Books : book) {
-                if (Books.city.equalsIgnoreCase(city)) {
-                    System.out.println(Books);
-                    flag = true;
-                }
-            }
-            if (flag == false)
-                System.out.println("No records found");
+            String viewCity = userinput.next();
+            book.stream().filter(n -> n.city.equalsIgnoreCase(viewCity)).forEach(System.out::println);
         } else {
             System.out.println("Enter State");
-            String state = userinput.next();
-            boolean flag = false;
-            for (Contacts Books : book) {
-                if (Books.state.equalsIgnoreCase(state)) {
-                    System.out.println(Books);
-                    flag = true;
-                }
-            }
-            if (flag == false)
-                System.out.println("No records found");
+            String viewState = userinput.next();
+            book.stream().filter(n -> n.state.equalsIgnoreCase(viewState)).forEach(System.out::println);
         }
     }
 
     public static void countByCityorState(Scanner userinput, ArrayList<Contacts> book) {
         System.out.println("how do you like to count 1.city 2.state ?");
         int option = userinput.nextInt();
-        int count = 0;
-
         if (option == 1) {
             System.out.println("Enter city");
-            String city = userinput.next();
-            boolean flag = false;
-            for (Contacts Books : book) {
-                if (Books.city.equalsIgnoreCase(city)) {
-                    count++;
-                    flag = true;
-                }
-            }
-            System.out.println(count + " entries in this city");
-            if (flag == false)
-                System.out.println("No records found");
+            String citySearch = userinput.next();
+            long count = book.stream().filter(n -> n.city.equalsIgnoreCase(citySearch))
+                    .count();
+            System.out.println(count);
+
         } else {
             System.out.println("Enter State");
-            String state = userinput.next();
-            boolean flag = false;
-            for (Contacts Books : book) {
-                if (Books.state.equalsIgnoreCase(state)) {
-                    count++;
-                    flag = true;
-                }
-            }
-            System.out.println(count + " entries in this state");
-
-            if (flag == false)
-                System.out.println("No records found");
-
+            String stateSearch = userinput.next();
+            long count = book.stream().filter(n -> n.state.equalsIgnoreCase(stateSearch))
+                    .count();
+            System.out.println(count);
         }
+    }
+
+    public static void sortByFirstName(ArrayList<Contacts> book) {
+        List<Contacts> sortedBook = book.stream()
+                .sorted((p1, p2) -> p1.firstName.compareTo(p2.firstName))
+                .collect(Collectors.toList());
+        sortedBook.forEach(System.out::println);
+    }
+
+    public static void sortByCity(ArrayList<Contacts> book) {
+        List<Contacts> sortedBook = book.stream()
+                .sorted((p1, p2) -> p1.city.compareTo(p2.city))
+                .collect(Collectors.toList());
+        sortedBook.forEach(System.out::println);
+    }
+
+    public static void sortByState(ArrayList<Contacts> book) {
+        List<Contacts> sortedBook = book.stream()
+                .sorted((p1, p2) -> p1.state.compareTo(p2.state))
+                .collect(Collectors.toList());
+        sortedBook.forEach(System.out::println);
+    }
+
+    public static void sortByzip(ArrayList<Contacts> book) {
+        List<Contacts> sortedBook = book.stream()
+                .sorted(Comparator.comparingLong(Contacts::getZip))
+                .collect(Collectors.toList());
+        sortedBook.forEach(System.out::println);
     }
 
 

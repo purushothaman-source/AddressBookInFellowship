@@ -1,7 +1,6 @@
 package com.uccases;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -11,7 +10,8 @@ class Contacts {
     String address;
     String city;
     String state;
-    long zip, phoneNumber;
+    long zip;
+    long phoneNumber;
 
     public Contacts(String firstName, String lastName, String address, String city, String state, long zip,
                     long phoneNumber) {
@@ -24,8 +24,8 @@ class Contacts {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public long getZip() {
+        return zip;
     }
 
     @Override
@@ -64,7 +64,8 @@ public class AddressBook {
 
         while (!check.equalsIgnoreCase("n")) {
             System.out.println("Enter the Operation you want to perform");
-            System.out.println("1.Add \n 2.Edit \n 3.Delete \n 4.Search \n 5.view \n 6.count");
+            System.out.println("1.Add \n 2.Edit \n 3.Delete \n 4.Search \n 5.view \n 6.count \n 7.SortbyName " +
+                    "8.SortbyCity \n 9.SortbyState \n 10.SortbyState");
             int option = input.nextInt();
             switch (option) {
                 case 1:
@@ -83,13 +84,20 @@ public class AddressBook {
                     AddressBookOperations.viewByCityorState(input, book);
                     break;
                 case 6:
-                    AddressBookOperations.countByCityorState(input,book);
+                    AddressBookOperations.countByCityorState(input, book);
                     break;
-                case 7 :
-                    Collections.sort(book,(p1, p2)->{
-                        return p1.firstName.compareTo(p2.firstName);
-                    });
-                    book.stream().forEach(n -> System.out.println(n));
+                case 7:
+                    AddressBookOperations.sortByFirstName(book);
+                    break;
+                case 8:
+                    AddressBookOperations.sortByCity(book);
+                    break;
+                case 9:
+                    AddressBookOperations.sortByState(book);
+                    break;
+                case 10:
+                    AddressBookOperations.sortByzip(book);
+                    break;
             }
             System.out.println("Do you want to perform any other option ?press(y/n)");
             check = input.next();
