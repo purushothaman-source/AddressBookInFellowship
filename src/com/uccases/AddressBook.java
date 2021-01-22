@@ -1,12 +1,16 @@
 package com.uccases;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
-import static com.uccases.AddressBookOperations.*;
 
 class Contacts {
-    String firstName, lastName, address, city, state;
+    String firstName;
+    String lastName;
+    String address;
+    String city;
+    String state;
     long zip, phoneNumber;
 
     public Contacts(String firstName, String lastName, String address, String city, String state, long zip,
@@ -20,6 +24,9 @@ class Contacts {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 
     @Override
     public String toString() {
@@ -78,11 +85,16 @@ public class AddressBook {
                 case 6:
                     AddressBookOperations.countByCityorState(input,book);
                     break;
+                case 7 :
+                    Collections.sort(book,(p1, p2)->{
+                        return p1.firstName.compareTo(p2.firstName);
+                    });
+                    book.stream().forEach(n -> System.out.println(n));
             }
             System.out.println("Do you want to perform any other option ?press(y/n)");
             check = input.next();
         }
-        System.out.println(book);
+        book.stream().forEach(n -> System.out.println(n));
     }
 
 
